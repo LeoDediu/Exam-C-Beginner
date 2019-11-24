@@ -39,12 +39,16 @@ void ft_putnbr(int n)
     }
 }
 
-int main (int ac, char **av)
+int main (int argc, char **argv)
 {
-    if (ac > 1)
-        ft_putnbr(ac - 1);
-    else 
+    if (argc > 1 && argv[1] != 0)
+    {
+        ft_putnbr(argc - 1);
+    }
+    else {
         ft_putchar('0');
+    }
+    
     ft_putchar('\n');
     return 0;
 }
