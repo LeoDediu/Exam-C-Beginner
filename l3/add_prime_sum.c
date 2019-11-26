@@ -55,8 +55,8 @@ void ft_putnbr (int n)
 
 int ft_isprime(int n)
 {
-    int i = 0;
-    i = 2;
+    int i = 2;
+
     if (n > 1)
     {
         while (i * i <= n)
