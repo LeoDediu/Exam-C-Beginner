@@ -1,48 +1,49 @@
-int get_digit(char c, int base)
+char to_lower(char c)
 {
-	int digit = -1;
-	if (c >= '0' && c <= '9')
-		digit = c - '0';
-	else if (c >= 'a' && c <= 'f')
-		digit = c + 10 - 'a';
-	else if (c >= 'A' && c <= 'F')
-		digit = c + 10 - 'A';
-	if (digit != -1)
-	{
-		if (digit > base)
-			digit = -1;
-	}
-	return digit;
+	if (c >= 'A' && c <= 'Z')
+		return (c + 'a' - 'A');
+	return (c);
+}
+
+int	get_digit(char c, int digits_in_base)
+{
+	char arr[] = "0123456789abcdef";
+	int i = 0;
+	while (arr[i] != c && i < digits_in_base)
+		++i;
+	if (i < digits_in_base)
+		return (i);
+	return (-1);
 }
 
 int	ft_atoi_base(const char *str, int str_base)
 {
-	int i = 0;
-	int digit = 0;
-	int out = 0;
+	int result = 0;
 	int sign = 1;
-	if (str[i] == '-')
+	int digit;
+
+	if (*str == '-')
 	{
 		sign = -1;
-		i++;
+		++str;
 	}
-	while (str[i])
+
+	while ((digit = get_digit(to_lower(*str), str_base)) >= 0)
 	{
-		digit = get_digit(str[i], str_base);
-		if (digit == -1)
-			return 0;
-		out = out * str_base;
-		out += digit;
-		i++;
+		result = result * str_base;
+		result = result + (digit * sign);
+		++str;
 	}
-	return out * sign;
+	return (result);
 }
 
-//-------------------------------------------------
+//---------------------------------------------
 
 #include <stdio.h>
-int		main(void)
+
+int	main(void)
 {
-	printf("%d\n", ft_atoi_base("15690b80B", 16));
-	printf("%d\n", ft_atoi_base("13", 2));
+	char test[] = "-0fF";
+	printf("%d\n", ft_atoi_base(test, 16));
 }
+
